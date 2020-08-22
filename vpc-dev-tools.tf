@@ -4,7 +4,7 @@ resource "aws_vpc" "devtools" {
   assign_generated_ipv6_cidr_block = "true"
   instance_tenancy                 = "default"
   tags = {
-    Name = vpc-devtools
+    Name = [vpc-devtools]
   }
 }
 
