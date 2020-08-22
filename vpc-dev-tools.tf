@@ -4,7 +4,7 @@ resource "aws_vpc" "devtools" {
   assign_generated_ipv6_cidr_block = "true"
   instance_tenancy                 = "default"
   tags = {
-    Name = ["vpc-devtools"]
+    Name = "vpc_devtools"
   }
 }
 
@@ -115,7 +115,7 @@ resource "aws_subnet" "sn4-devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.4.0/24"
   depends_on        = [aws_vpc.devtools]
-  availability_zone = "us-east-1d"
+  availability_zone = "us-east-1e"
   tags = {
     Name = sn4-devtools
   }
@@ -126,7 +126,7 @@ resource "aws_subnet" "sn5-devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.5.0/24"
   depends_on        = [aws_vpc.devtools]
-  availability_zone = "us-east-1d"
+  availability_zone = "us-east-1f"
   tags = {
     Name = sn5-devtools
   }
