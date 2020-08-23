@@ -16,8 +16,8 @@ resource "aws_default_network_acl" "devtools" {
   egress {
     rule_no    = 100
     protocol   = "icmp"
-    from_port  = -1
-    to_port    = -1
+    from_port  = 0
+    to_port    = 0
     icmp_type  = -1
     icmp_code  = -1
     cidr_block = "0.0.0.0/0"
@@ -37,98 +37,79 @@ resource "aws_default_network_acl" "devtools" {
   ingress {
     rule_no    = 100
     protocol   = "icmp"
-    from_port  = -1
-    to_port    = -1
+    from_port  = 0
+    to_port    = 0
     icmp_type  = -1
     icmp_code  = -1
     cidr_block = "0.0.0.0/0"
     action     = "allow"
   }
-
-  ingress {
-    protocol   = "tcp"
-    rule_no    = 150
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 80
-    to_port    = 80
-  }
-
-  ingress {
-    protocol   = "tcp"
-    rule_no    = 200
-    action     = "allow"
-    cidr_block = "0.0.0.0/0"
-    from_port  = 443
-    to_port    = 443
-  }
-
 }
 
 
 #Create sn0-devtools
-resource "aws_subnet" "sn0-devtools" {
+resource "aws_subnet" "sn0_devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.0.0/24"
   depends_on        = [aws_vpc.devtools]
   availability_zone = "us-east-1a"
   tags = {
-    Name = sn0-devtools
+    Name = "sn0_devtools"
   }
 }
 
 #Create sn1-devtools
-resource "aws_subnet" "sn1-devtools" {
+resource "aws_subnet" "sn1_devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.1.0/24"
   depends_on        = [aws_vpc.devtools]
   availability_zone = "us-east-1b"
   tags = {
-    Name = sn1-devtools
+    Name = "sn1_devtools"
   }
 }
 
 #Create sn2-devtools
-resource "aws_subnet" "sn2-devtools" {
+resource "aws_subnet" "sn2_devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.2.0/24"
   depends_on        = [aws_vpc.devtools]
   availability_zone = "us-east-1c"
   tags = {
-    Name = sn2-devtools
+    Name = "sn2_devtools"
   }
 }
 
 #Create sn3-devtools
-resource "aws_subnet" "sn3-devtools" {
+resource "aws_subnet" "sn3_devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.3.0/24"
   depends_on        = [aws_vpc.devtools]
   availability_zone = "us-east-1d"
   tags = {
-    Name = sn3-devtools
+    Name = "sn3_devtools"
   }
 }
 
 #Create sn4-devtools
-resource "aws_subnet" "sn4-devtools" {
+resource "aws_subnet" "sn4_devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.4.0/24"
   depends_on        = [aws_vpc.devtools]
   availability_zone = "us-east-1e"
   tags = {
-    Name = sn4-devtools
+    Name = "sn4_devtools"
   }
 }
 
 #Create sn5-devtools
-resource "aws_subnet" "sn5-devtools" {
+resource "aws_subnet" "sn5_devtools" {
   vpc_id            = aws_vpc.devtools.id
   cidr_block        = "10.50.5.0/24"
   depends_on        = [aws_vpc.devtools]
   availability_zone = "us-east-1f"
   tags = {
-    Name = sn5-devtools
+    Name = "sn5_devtools"
   }
 }
 
@@ -137,7 +118,7 @@ resource "aws_internet_gateway" "devtools" {
   vpc_id     = aws_vpc.devtools.id
   depends_on = [aws_vpc.devtools]
   tags = {
-    Name = ig-devtools
+    Name = "ig_devtools"
   }
 }
 
@@ -147,11 +128,11 @@ resource "aws_route_table" "devtools" {
   depends_on = [aws_internet_gateway.devtools, aws_vpc.devtools]
   route {
     cidr_block = "0.0.0.0/0"
-    gateway_id = aws_internet_gateway.vpc.id
+    gateway_id = aws_internet_gateway.devtools.id
   }
 
   tags = {
-    Name = rt-devtools
+    Name = "rt_devtools"
   }
 }
 
